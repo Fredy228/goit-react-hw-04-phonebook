@@ -1,6 +1,6 @@
 import React from "react";
 import {Container, Title} from './App.styled';
-import Phonebook from '../Phonebook/Phonebook';
+import {Phonebook} from '../Phonebook/Phonebook';
 import {Filter} from '../Filter/Filter';
 import {ContactsList} from '../ContactsList/ContactsList';
 import { nanoid } from 'nanoid';
@@ -23,7 +23,7 @@ class App extends React.Component {
     this.setState({filter: value})
   }
 
-  addContact = ({name, number}) => {
+  addContact = (name, number) => {
     const {contacts} = this.state;
     const haveContact = contacts.find( contact => contact.name === name || contact.number === number);
     if(haveContact) {

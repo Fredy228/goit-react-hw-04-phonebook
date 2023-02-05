@@ -1,36 +1,40 @@
-import React from "react";
+import {useState} from "react";
 import {From, Input, Label, Button} from './Phonebook.styled';
 import PropTypes from 'prop-types';
 
-class Phonebook extends React.Component {
+export const Phonebook = ({addContact}) => {
 
-    state = {
-        name: '',
-        number: ''
-    }
+    const [nameContact, setNameContact] = useState('');
+    const [number, setNumber] = useState('');
 
-    handleChange = event => {
+    const handleChange = event => {
         const {value, name} = event.currentTarget;
-        this.setState({[name]: value})
+        switch (name) {
+            case 'name':
+                setNameContact(value)
+                break
+            case 'number':
+                setNumber(value)
+                break
+            default:
+                break;
+        }
       }
     
-    submitForm = (event) => {
+    const submitForm = event => {
         event.preventDefault();
-        this.props.addContact(this.state);
+        addContact(nameContact, number);
         event.currentTarget.reset()
-
     }
-
-    render () {
         return (
-            <From onSubmit={this.submitForm}>
+            <From onSubmit={submitForm}>
             <Label>
                 Name
                 <Input
                 type="text"
                 name="name"
-                value={this.name}
-                onChange={this.handleChange}
+                value={nameContact}
+                onChange={handleChange}
                 pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
                 title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
                 required
@@ -41,8 +45,8 @@ class Phonebook extends React.Component {
                 <Input
                 type="tel"
                 name="number"
-                value={this.number}
-                onChange={this.handleChange}
+                value={number}
+                onChange={handleChange}
                 pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
                 title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
                 required
@@ -52,10 +56,8 @@ class Phonebook extends React.Component {
         </From>
         )
     }
-}
 
 Phonebook.propTypes = {
     addContact: PropTypes.func
 }
 
-export default Phonebook;
