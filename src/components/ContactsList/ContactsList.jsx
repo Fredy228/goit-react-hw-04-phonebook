@@ -2,8 +2,10 @@ import {ListContacts, ItemContact, Button, Text} from './ContactsList.styled';
 import PropTypes from 'prop-types';
 
 export const ContactsList = ({findContactsByName, contacts, deleteContact}) => {
+   
     let foundContacts = findContactsByName();
     let renderCondition = foundContacts.length > 0 ? (foundContacts) : (contacts);
+    
     return (
         <ListContacts>
             {renderCondition.map(contact => {
