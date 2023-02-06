@@ -7,8 +7,6 @@ import { nanoid } from 'nanoid';
 
 const LOCAL_STORAGE_NAME = 'contacts-list';
 
-
-
 export const App = () => {
   
   const firstStart = useRef(true);
